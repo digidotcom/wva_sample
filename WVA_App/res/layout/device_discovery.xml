@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="6dp" >
+
+    <fragment
+        class="com.digi.android.wva.fragments.DeviceDiscoveryFragment"
+        android:id="@+id/device_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:layout="@layout/device_discovery_fragment"
+        android:layout_weight="1"/>
+</LinearLayout>

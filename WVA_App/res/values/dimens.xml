@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <!-- Dimensions for refresh action view. -->
+    <!-- Might need to set this to different values on screen density
+    (e.g. values-hdpi, values-mdpi) depending on how this looks on those
+    sorts of phones. -->
+    <dimen name="refresh_min_height">48dip</dimen>
+    <!-- In landscape mode, the action view seems to take up more horizontal
+    space than the icon does.  -->
+    <dimen name="refresh_min_width">0dip</dimen>
+
+</resources>

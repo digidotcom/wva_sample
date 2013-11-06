@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="DefaultLocale" severity="ignore" />
+    <issue id="NestedWeights">
+        <ignore path="res\layout-xlarge-port\dashboard.xml" />
+    </issue>
+    <issue id="SelectableText" severity="ignore">
+        <ignore path="res\layout-xlarge\log_fragment.xml" />
+    </issue>
+</lint>

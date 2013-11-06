@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <CheckBox
+        android:id="@+id/subscribedCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/endpoint_config_enable_subscription"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/textView_interval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/endpoint_config_subscription_interval"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:enabled="true"/>
+
+        <EditText
+            android:id="@+id/subscriptionInterval"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/endpoint_config_default_interval"
+            android:inputType="number" >
+
+            <requestFocus />
+        </EditText>
+
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="16dp"
+            android:background="#FFCCCCCC" android:contentDescription="@string/content_desc_divider"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" android:gravity="center"
+            android:id="@+id/section_show_alarm">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/alarm_info"
+                android:padding="8dp"/>
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/alarmCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/endpoint_config_enable_alarm"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_margin="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/section_make_alarm">
+
+        <Spinner
+            android:id="@+id/alarmTypeSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" />
+
+        <EditText
+            android:id="@+id/alarmThreshold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/endpoint_config_default_threshold"
+            android:inputType="numberSigned|numberDecimal" />
+
+    </LinearLayout>
+
+</LinearLayout>

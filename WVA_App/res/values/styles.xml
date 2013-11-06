@@ -1,0 +1,127 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="Theme.Sherlock.Light.DarkActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="Theme.Sherlock.Light.DarkActionBar">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
+    </style>
+    
+    <style name="ActionBarStyle" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+    <!--
+        <item name="android:background">#FF558000</item>
+    -->
+    </style>
+
+    <!-- Log messages styling. -->
+    <style name="LogMessage">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#aa000000</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    
+    <style name="LogMessageAlarm" parent="LogMessage">
+        <item name="android:textColor">#ffdd0000</item>
+    </style>
+
+    <style name="LogTimestamp">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ff666666</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    
+    <!-- Styling on list fragment headers. -->
+    <style name="ListHeaderStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">24dp</item> <!-- ?? -->
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:background">@drawable/header_divider</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/bright_green</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    
+    <style name="PageIndicatorTextStyle" parent="@android:attr/textAppearanceSmall">
+        <item name="android:textColor">@color/bright_green</item>
+<!--         <item name="android:textStyle">bold</item> -->
+    </style>
+    
+    <style name="PageIndicatorStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#313131</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textAppearance">@style/PageIndicatorTextStyle</item>
+    </style>
+    
+    <!-- Style for variable names -->
+    <style name="VariableNameStyle" parent="@android:attr/textAppearanceLarge">
+        <item name="android:textColor">@color/variable_name</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    
+    <!-- Style for variable values -->
+    <style name="VariableValueStyle" parent="@android:attr/textAppearanceLarge">
+        <item name="android:textColor">@color/variable_value</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">right|center_vertical</item>
+    </style>
+
+    <!-- Style for endpoint names. -->
+    <style name="EndpointNameStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/endpoint_entry_name</item>
+    </style>
+
+    <!-- Style for endpoint alarm summaries. -->
+    <style name="EndpointAlarmSummaryStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/endpoint_alarm_summary_color</item>
+    </style>
+
+    <!-- Base style for list fragment entries. -->
+    <style name="ListEntry">
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:layout_height">?android:attr/listPreferredItemHeight</item>
+        <item name="android:minHeight">?android:attr/listPreferredItemHeight</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="VerticallyCenteredListEntry" parent="ListEntry">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- This style is only used on xlarge devices. -->
+    <style name="DashboardFragment" />
+</resources>

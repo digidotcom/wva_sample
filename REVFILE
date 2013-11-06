@@ -1,0 +1,12 @@
+# get_rev.sh (final name TBD) is a script which parses
+# through this file, removing all lines which are comments
+# (begin with a #) or are blank/empty (contain only spaces, or
+# nothing at all); then pipes that output through head(1) to
+# extract just the first character. This is why there is just
+# a single letter on its own just below: it represents the
+# build rev for the sample app.
+
+# Build Rev:
+A
+
+# More comments can appear below; they are irrelevant.

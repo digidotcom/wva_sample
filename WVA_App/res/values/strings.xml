@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Digi WVA App</string>
+    <string name="action_settings">Settings</string>
+    <string name="log_header">EVENT LOG</string>
+    <string name="empty_log_message">No logs.</string>
+    <string name="empty_dev_message">No devices found.</string>
+    <string name="variables_header">VEHICLE DATA</string>
+    <string name="subscriptions_header">ALARMS AND SUBSCRIPTIONS</string>
+    <string name="refresh">Discover devices</string>
+    <string name="placeholder_discovery">WiFi Vehicle Bus Adapter\nSample Application</string>
+    <string name="pref_notification_category_title">Notifications</string>
+    <string name="pref_alarm_tone_title">Alarm tone</string>
+    <string name="pref_alarm_tone_summary">Sound for alarm notification</string>
+    <string name="settings_activity_title">Application settings</string>
+    <string name="pref_device_category_title">Connection Settings</string>
+    <string name="pref_device_port_title">TCP port for events</string>
+    <string name="pref_device_manual_ip">IP address for manual connection</string>
+    <string name="endpoint_config_enable_subscription">Subscribe</string>
+    <string name="endpoint_config_enable_alarm">Create alarm</string>
+    <string name="endpoint_config_subscription_interval">Interval (seconds):</string>
+    <string name="endpoint_config_default_interval">10</string>
+    <string name="endpoint_config_default_threshold">100.0</string>
+    <string name="menu_devices_manual_view">Manually connect</string>
+    <string name="menu_devices_show_chart">Show graph</string>
+    <string name="logevent_message_default">Variable update: Speed = 1.0</string>
+    <string name="logevent_timestamp_default">Log event timestamp will be here.</string>
+    <string name="variable_name_default">Sample</string>
+    <string name="variable_value_default">0.0</string>
+    <string name="content_desc_divider">Divider</string>
+    <string name="content_desc_logo">WVA Application Logo</string>
+    <string name="pre_connected_dashboard_title">Connecting…</string>
+    <string name="default_ip">192.168.100.1</string>
+    <string name="connected_dashboard_title">Connected to WVA device</string>
+    <string name="connected_toast_contents">Connected!</string>
+    <string name="configure_endpoints_toast_subscribed">Subscribed to
+        endpoint.
+    </string>
+    <string name="configure_endpoints_toast_invalid_sub_interval">Invalid
+        subscription interval.
+    </string>
+    <string name="configure_endpoints_invalid_threshold">Invalid alarm
+        threshold.
+    </string>
+    <string name="configure_endpoints_created_alarm">Created alarm.</string>
+    <string name="dashboard_error_dialog_title">Connection Error</string>
+    <string name="sync_time">Sync time</string>
+    <string-array name="alarm_types">
+        <item >Above</item>
+        <item >Below</item>
+        <item >Change</item>
+        <item >Delta</item>
+    </string-array>
+
+    <string-array name="auto_subscribe_titles">
+        <item>10 seconds</item>
+        <item>15 seconds</item>
+        <item>20 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>2 minutes</item>
+    </string-array>
+    <string-array name="auto_subscribe_values">
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+    </string-array>
+
+    <string name="default_interval">10</string>
+    <string name="app_name_sample_app">WVA Sample App</string>
+    <string name="connecting_to_device">Connecting to WVA device…</string>
+
+</resources>

@@ -1,0 +1,11 @@
+bin
+gen
+out
+reports
+.idea
+settings.gradle
+*.pyc
+*.zip
+info.txt
+local.properties
+emulator.log
