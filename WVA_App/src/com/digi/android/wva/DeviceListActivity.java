@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.digi.android.wva.fragments.PreConnectionDialog.PreConnectionDialogListener;
 import com.digi.android.wva.util.NetworkUtils;
 
 /**

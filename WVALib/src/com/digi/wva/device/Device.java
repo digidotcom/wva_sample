@@ -44,9 +44,16 @@ public class Device {
      * Device Constructor
      */
 	public Device(String hostname, int subscriptionPort) {
+		this(hostname, subscriptionPort, false, null, null, false);
+	}
+	
+	/**
+	 * Device Constructor
+	 */
+	public Device(String hostname, int subscriptionPort, boolean needsAuth, String authUser, String authPass, boolean useHttps) {
 		this.hostname = hostname;
 		this.port = subscriptionPort;
-        this.httpClient = new WvaHttpClient(hostname);
+        this.httpClient = new WvaHttpClient(hostname, needsAuth, authUser, authPass, useHttps);
 		this.vehicle = new Vehicle(httpClient);
 		this.ecu = new Ecu(httpClient);
 		this.hardware = new Hardware(httpClient);

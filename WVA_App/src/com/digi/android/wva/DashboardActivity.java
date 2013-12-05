@@ -29,6 +29,8 @@ import com.digi.android.wva.fragments.ConnectionErrorDialog;
 import com.digi.android.wva.fragments.ConnectionErrorDialog.ErrorDialogListener;
 import com.digi.android.wva.fragments.EndpointsFragment;
 import com.digi.android.wva.fragments.LogFragment;
+import com.digi.android.wva.fragments.PreConnectionDialog;
+import com.digi.android.wva.fragments.PreConnectionDialog.PreConnectionDialogListener;
 import com.digi.android.wva.fragments.VariableListFragment;
 import com.digi.android.wva.util.MessageCourier;
 import com.digi.wva.async.WvaCallback;
@@ -50,7 +52,9 @@ import org.joda.time.DateTimeZone;
  *
  */
 public class DashboardActivity extends SherlockFragmentActivity
-								implements ErrorDialogListener {
+								implements ErrorDialogListener, PreConnectionDialogListener {
+	public static final String INTENT_IP = "ip_address";
+	
 	private static final String TAG = "DashboardActivity";
     private ViewPager mViewPager;
 
@@ -162,10 +166,51 @@ public class DashboardActivity extends SherlockFragmentActivity
 		navigateBackToDevices();
 	}
 
-    private void setIsConnecting(boolean is) {
+	/**
+	 * Implementation of the PreConnectionDialogListener interface defined
+	 * in PreConnectionDialog class. When the user presses the "Okay" button
+	 * in that dialog, the dialog will automatically go away, and we need to
+	 * use the input from that dialog to configure the connection with the
+	 * device (username, password, whether we need to use HTTPS, etc.).
+	 */
+    @Override
+	public void onOkay(String ipAddress, String username, String password,
+			boolean useHttps) {
+    	// Use VehicleInfoService to connect to the device.
+        startService(VehicleInfoService.buildConnectIntent(
+        		getApplicationContext(), ipAddress, username, password, useHttps));
+	}
+    
+    /**
+     * Implementation of {@link PreConnectionDialogListener#onCancelConnection()}.
+     * When the user presses the "Cancel" button in that dialog, the dialog will
+     * automatically go away, and we want to respond by {@link #finish}ing the
+     * DashboardActivity. (The user apparently wishes to cancel the attempted connection
+     * with this device.)
+     */
+    @Override
+    public void onCancelConnection() {
+    	Toast.makeText(this, "Cancelled connection to " + getConnectionIp(),
+    					Toast.LENGTH_SHORT).show();
+    	navigateBackToDevices();
+    }
+
+	private void setIsConnecting(boolean is) {
         setSupportProgressBarIndeterminateVisibility(is);
         showIndeterminateProgress = is;
     }
+	
+	private String getConnectionIp() {
+    	String ipAddr = getIntent().getStringExtra(INTENT_IP);
+
+    	if (ipAddr == null) {
+//    		Log.e(TAG, "Got intent with null ip address!");
+    		ipAddr = PreferenceManager.getDefaultSharedPreferences(this)
+    				.getString("pref_device_manual_ip", getString(R.string.default_ip));
+    	}
+    	
+    	return ipAddr;
+	}
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,14 +232,13 @@ public class DashboardActivity extends SherlockFragmentActivity
             mActionBarTitle = getString(R.string.pre_connected_dashboard_title);
             
             // Send connect command to service...
-        	String ipAddr = getIntent().getStringExtra("ip_address");
-        	if (ipAddr == null) {
-//        		Log.e(TAG, "Got intent with null ip address!");
-        		ipAddr = PreferenceManager.getDefaultSharedPreferences(this)
-        				.getString("pref_device_manual_ip", getString(R.string.default_ip));
-        	}
-	        startService(VehicleInfoService.buildConnectIntent(
-	        					getApplicationContext(), ipAddr));
+        	String ipAddr = getConnectionIp();
+        	
+        	FragmentManager fm = getSupportFragmentManager();
+        	FragmentTransaction ft = fm.beginTransaction();
+        	PreConnectionDialog dlg = PreConnectionDialog.newInstance(ipAddr);
+            ft.addToBackStack(null);
+            dlg.show(ft, "pre_connect");
         }
         else { // there is a saved instance state
             mActionBarTitle = savedInstanceState.getString("title");

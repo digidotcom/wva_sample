@@ -7,13 +7,19 @@
  
 package com.digi.android.wva.fragments;
 
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -27,10 +33,6 @@ import com.digi.android.wva.WvaApplication;
 import com.digi.android.wva.adapters.DeviceAdapter;
 import com.digi.android.wva.util.NetworkUtils;
 import com.digi.android.wva.util.RefreshManager;
-
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 
 /**
  * {@link SherlockListFragment Fragment} used specifically in
@@ -161,8 +163,11 @@ public class DeviceDiscoveryFragment extends SherlockListFragment {
             // There is no item at position 'position'...
             return;
         }
+        
+        // Launch the DashboardActivity.
 		Intent intent = new Intent(getActivity(), DashboardActivity.class);
-		intent.putExtra("ip_address", device.getIPAddress().toString());
+		intent.putExtra(DashboardActivity.INTENT_IP, device.getIPAddress().toString());
+
 		startActivity(intent);
 	}
 	

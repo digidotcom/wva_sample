@@ -12,6 +12,8 @@ import com.digi.wva.async.*;
 import com.digi.wva.exc.EndpointUnknownException;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.client.HttpResponseException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -297,7 +299,14 @@ public class Vehicle {
 
 			@Override
 			public void onFailure(Throwable error, String response) {
-				Log.e(TAG, "unable to unsubscribe from " + endpoint, error);
+				if (error instanceof HttpResponseException && ((HttpResponseException)error).getStatusCode() == 404) {
+					// The error was 404 not found. This is fine, since it means
+					// there were no subscriptions for this endpoint to begin with.
+					// We don't need to fill the logs with the stack trace from this error.
+					Log.e(TAG, "Unable to unsubscribe from " + endpoint + ": no subscription exists.", error);
+				} else {
+					Log.e(TAG, "Unable to unsubscribe from " + endpoint, error);
+				}
                 if (cb != null) {
                     cb.onResponse(error, null);
                 }

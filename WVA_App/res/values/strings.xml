@@ -73,5 +73,11 @@
     <string name="default_interval">10</string>
     <string name="app_name_sample_app">WVA Sample App</string>
     <string name="connecting_to_device">Connecting to WVA device…</string>
+    <string name="auth_username_hint">Username</string>
+    <string name="auth_password_hint">Password</string>
+    <string name="pre_connection_dialog_title_template">Set up connection to %s</string>
+    <string name="use_https_text">Use HTTPS</string>
+    <string name="pre_connection_security_header">HTTPS Security</string>
+    <string name="pre_connection_authentication_header">Authentication</string>
 
 </resources>

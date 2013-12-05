@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <instrumentation
-        android:name="com.zutubi.android.junitreport.JUnitReportTestRunner"
+        android:name=".WVATestRunner"
         android:targetPackage="com.digi.wva.wvalib.test" />
 
     <application

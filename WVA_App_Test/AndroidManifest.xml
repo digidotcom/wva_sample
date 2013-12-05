@@ -7,7 +7,7 @@
     <uses-sdk android:minSdkVersion="8" />
 
     <instrumentation
-        android:name="com.zutubi.android.junitreport.JUnitReportTestRunner"
+        android:name="com.digi.android.wva.test.WVATestRunner"
         android:targetPackage="com.digi.android.wva" />
 
     <application

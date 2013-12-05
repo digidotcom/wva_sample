@@ -53,10 +53,18 @@ public class VehicleInfoService extends Service {
 	public static final String INTENT_CMD = "command";
     /** Intent extra key to indicate the IP address to connect to, when the
      * command being used is {@link #CMD_CONNECT}.
-     * nError
-     * j
      */
 	public static final String INTENT_IP = "ip_addr";
+	/** Intent extra key to give the basic-auth username to use with this device.
+	 */
+	public static final String INTENT_AUTH_USER = "auth_user";
+	/** Intent extra key to give the basic-auth password to use with this device.
+	 */
+	public static final String INTENT_AUTH_PASS = "auth_pass";
+	/** Intent extra key to indicate whether the HTTP connection should use HTTPS or not.
+	 */
+	public static final String INTENT_HTTPS = "https";
+
     // CMD_* are values for INTENT_CMD extras
     /** This command is only used in {@link com.digi.android.wva.WvaApplication#onCreate()},
      * to initialize VehicleInfoService.
@@ -232,10 +240,20 @@ public class VehicleInfoService extends Service {
 	 * @return intent to be used in startService call
 	 */
 	public static Intent buildConnectIntent(Context context, String ip_addr) {
+		return buildConnectIntent(context, ip_addr, null, null, true);
+	}
+	
+	public static Intent buildConnectIntent(Context context, String ip_addr, String auth_user, String auth_pass, boolean useHttps) {
 		// Make new intent with command CMD_CONNECT and the IP given
 		Intent intent = new Intent(context, VehicleInfoService.class);
 		// Add command and the ip address
-		intent.putExtra(INTENT_CMD, CMD_CONNECT).putExtra(INTENT_IP, ip_addr);
+		intent
+			.putExtra(INTENT_CMD, CMD_CONNECT)
+			.putExtra(INTENT_IP, ip_addr)
+			.putExtra(INTENT_AUTH_USER, auth_user)
+			.putExtra(INTENT_AUTH_PASS, auth_pass)
+			.putExtra(INTENT_HTTPS, useHttps);
+
 		return intent;
 	}
 
@@ -295,6 +313,9 @@ public class VehicleInfoService extends Service {
 
 		if (isConnect) {
 			String ip = intent.getStringExtra(INTENT_IP);
+			String username = intent.getStringExtra(INTENT_AUTH_USER);
+			String password = intent.getStringExtra(INTENT_AUTH_PASS);
+			boolean useHttps = intent.getBooleanExtra(INTENT_HTTPS, true);
 			if (TextUtils.isEmpty(ip)) {
 				Log.e(TAG, "startService given connect command with empty IP!");
 				isConnected = false;
@@ -322,7 +343,7 @@ public class VehicleInfoService extends Service {
 
                 mDevice = app.getDevice();
                 if (mDevice == null) {
-                    mDevice = new Device(connectIp, port);
+                    mDevice = new Device(connectIp, port, true, username, password, useHttps);
                     app.setDevice(mDevice);
                 }
 
@@ -427,27 +448,6 @@ public class VehicleInfoService extends Service {
 
                     }
                 });
-
-                if (mDevice == null)
-                    return;
-
-                mDevice.configureBaudRate(250000, new WvaCallback<Integer>() {
-                    @Override
-                    public void onResponse(Throwable error, Integer response) {
-                        if (error == null) {
-                            Log.d(TAG, "Failed to configure baud rate.");
-                        }
-                        else {
-                            Log.d(TAG, "Failed to configure baud rate", error);
-                            if (toastContext == null)
-                                return;
-                            Toast.makeText(toastContext,
-                                    "Failed to configure baud rate",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
             }
 		}
 	}
