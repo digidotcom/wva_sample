@@ -146,7 +146,7 @@ public class Device {
         JSONObject canbusObj = new JSONObject();
         try {
             confObj.put("enable", "on");
-            confObj.put("rate", 250000);
+            confObj.put("rate", baudRate);
             canbusObj.put("canbus", confObj);
         } catch (JSONException e) {
             Log.wtf(TAG, "unable to create JSONObject in setBaudRate");
