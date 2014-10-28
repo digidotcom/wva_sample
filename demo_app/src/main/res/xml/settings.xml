@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="@string/pref_notification_category_title">
+        <RingtonePreference android:title="@string/pref_alarm_tone_title" android:key="pref_key_alarm_tone" android:summary="@string/pref_alarm_tone_summary" android:defaultValue="content://settings/system/notification_sound" android:ringtoneType="notification" android:showSilent="true" android:showDefault="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_device_category_title">
+        <EditTextPreference android:title="@string/pref_device_manual_ip"
+                            android:key="pref_device_manual_ip"
+                            android:inputType="phone"
+                            android:maxLength="15"
+                            android:defaultValue="127.0.0.1" />
+        <EditTextPreference android:title="@string/pref_device_port_title"
+                            android:numeric="integer"
+                            android:defaultValue="5000"
+                            android:key="pref_device_port" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Subscription preferences">
+        <CheckBoxPreference
+            android:key="pref_auto_subscribe"
+            android:title="Subscribe automatically"
+            android:summary="If checked, you will automatically subscribe to all available data endpoints upon connecting to a device."
+            android:defaultValue="false" />
+        <ListPreference
+                android:key="pref_default_interval"
+                android:title="Default subscription interval"
+                android:entries="@array/auto_subscribe_titles"
+                android:entryValues="@array/auto_subscribe_values"
+                android:defaultValue="@string/default_interval" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Application settings">
+
+        <CheckBoxPreference
+            android:key="pref_log_autoscroll"
+            android:title="Auto-scroll event log"
+            android:defaultValue="true"
+                />
+    </PreferenceCategory>
+</PreferenceScreen>

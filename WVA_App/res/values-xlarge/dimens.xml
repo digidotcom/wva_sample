@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Dimensions for refresh action view. -->
-    <dimen name="refresh_min_height">64dip</dimen>
-    <dimen name="refresh_min_width">64dip</dimen>
-</resources>

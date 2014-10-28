@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="DefaultLocale" severity="ignore" />
+    <issue id="NestedWeights">
+        <ignore path="res\layout-xlarge-port\dashboard.xml" />
+    </issue>
+    <issue id="SelectableText" severity="ignore">
+        <ignore path="res\layout-xlarge\log_fragment.xml" />
+    </issue>
+    <issue id="InvalidPackage">
+        <ignore regexp="okio-1.0.0.jar" />
+    </issue>
+    <issue id="UnusedAttribute" severity="ignore">
+        <!-- ActionBarSherlock uses uiOptions and showAsAction.
+             textAllCaps is not vital to the functionality of the demo app. -->
+        <ignore regexp="uiOptions|showAsAction|textAllCaps" />
+    </issue>
+</lint>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/action_settings" android:showAsAction="never" android:title="@string/action_settings" android:orderInCategory="2000"></item>
-    <item android:id="@+id/manual_view" android:title="@string/menu_devices_manual_view" android:orderInCategory="2001"></item>
-</menu>

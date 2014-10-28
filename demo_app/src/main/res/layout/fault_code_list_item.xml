@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:background="@drawable/abs__list_selector_holo_light"
+              android:padding="8dp"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/faultCodeListItem"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        tools:text="ecu0"
+        android:textColor="#333"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"/>
+</LinearLayout>

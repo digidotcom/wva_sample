@@ -1,0 +1,67 @@
+buildscript {
+    apply from: file('../gradle/buildscript.gradle'), to: buildscript
+}
+
+apply plugin: 'com.android.application'
+
+version "1.2"
+
+dependencies {
+    // Dependencies available on Maven
+    compile 'com.digi.addp:addplib:1.0+'
+    compile 'com.digi.wva:wvalib:2.0+'
+    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile 'com.android.support:support-v4:18.0.+'
+    compile 'joda-time:joda-time:2.2'
+
+    // Dependencies pulled in as JARs
+    compile files('libs/achartengine-1.0.0.jar')
+    compile files('libs/cloud_connector_android.jar')
+
+    // Testing dependencies
+    androidTestCompile files('libs/android-junit-report-1.5.8.jar')
+    androidTestCompile files('libs/dexmaker-1.0.jar')
+    androidTestCompile files('libs/dexmaker-mockito-1.0.jar')
+    androidTestCompile files('libs/mockito-all-1.9.5.jar')
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion "20"
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 17
+
+        applicationId "com.digi.android.wva"
+        testApplicationId "com.digi.android.wva.test"
+        testInstrumentationRunner "com.digi.android.wva.test.WVATestRunner"
+        testHandleProfiling true
+        testFunctionalTest true
+
+        versionName "${version}.0.0"
+        versionCode 3
+    }
+
+    signingConfigs {
+        releaseSigning {
+            storeFile file((releaseKeystore.size() > 0) ? releaseKeystore : 'NO_KEYSTORE')
+            storePassword releaseKeystorePassword
+            keyAlias releaseKeyAlias
+            keyPassword releaseKeyPassword
+        }
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix " (${new Date().format('yyyy-MM-dd HH:mm:ss')})"
+            testCoverageEnabled true
+        }
+
+        if (releaseKeystore.size() > 0) {
+            release {
+                signingConfig signingConfigs.releaseSigning
+            }
+        }
+    }
+}
