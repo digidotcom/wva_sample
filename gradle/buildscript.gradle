@@ -1,4 +1,4 @@
 apply from: file('repositories.gradle')
 dependencies {
-    classpath 'com.android.tools.build:gradle:0.12+'
+    classpath 'com.android.tools.build:gradle:2.0.0'
 }

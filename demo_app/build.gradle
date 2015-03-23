@@ -4,14 +4,15 @@ buildscript {
 
 apply plugin: 'com.android.application'
 
-version "1.2"
+version "1.2.2.0"
 
 dependencies {
     // Dependencies available on Maven
     compile 'com.digi.addp:addplib:1.0+'
     compile 'com.digi.wva:wvalib:2.0+'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile 'com.android.support:support-v4:18.0.+'
+    // NOTE: v4:23 seems to break ActionBarSherlock (No instance field mFragments ...)
+    compile 'com.android.support:support-v4:22.2.0'
     compile 'joda-time:joda-time:2.2'
 
     // Dependencies pulled in as JARs
@@ -26,12 +27,12 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "20"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 17
+        targetSdkVersion 23
 
         applicationId "com.digi.android.wva"
         testApplicationId "com.digi.android.wva.test"
@@ -39,8 +40,8 @@ android {
         testHandleProfiling true
         testFunctionalTest true
 
-        versionName "${version}.0.0"
-        versionCode 3
+        versionName "${version}"
+        versionCode 4
     }
 
     signingConfigs {
