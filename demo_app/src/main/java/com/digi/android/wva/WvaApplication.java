@@ -36,8 +36,6 @@ import com.digi.android.wva.model.EndpointConfiguration.SubscriptionConfig;
 import com.digi.android.wva.model.VehicleData;
 import com.digi.android.wva.util.MessageCourier;
 import com.digi.android.wva.util.VehicleDataList;
-import com.digi.connector.android.library.core.CloudConnectorManager;
-import com.digi.connector.android.library.models.Sample;
 import com.digi.wva.WVA;
 import com.digi.wva.async.AlarmType;
 import com.digi.wva.async.EventFactory;
@@ -50,6 +48,9 @@ import org.joda.time.DateTime;
 
 import java.util.Arrays;
 import java.util.List;
+
+//import com.digi.connector.android.library.core.CloudConnectorManager;
+//import com.digi.connector.android.library.models.Sample;
 
 /**
  * Custom {@link Application} object to provide global variables and
@@ -77,7 +78,7 @@ public class WvaApplication extends Application {
 	private WVA mDevice;
 	private AddpClient addpClient;
 	
-	private CloudConnectorManager mCloudConnectorManager;
+	//private CloudConnectorManager mCloudConnectorManager;
 
     public Handler getHandler() {
         // This method seems to not work when running unit tests.
@@ -105,11 +106,12 @@ public class WvaApplication extends Application {
 	public AddpClient getAddpClient() {
 		return addpClient;
 	}
-	
+
+	/*
 	public CloudConnectorManager getCloudConnector() {
 		return mCloudConnectorManager;
 	}
-
+    */
     public String getApplicationVersion() {
         return appVersion;
     }
@@ -138,7 +140,7 @@ public class WvaApplication extends Application {
 			// "endpoint" is made final so it can be used in the new Runnable below
             final String endpoint = event.getEndpoint();
 
-//			Log.d("WVAApplication", "Listener cb for endpoint " + endpoint);
+			Log.d("WVAApplication", "Listener cb for endpoint " + endpoint);
             VehicleDataResponse response = event.getResponse();
 
 			Double value = response.getValue();
@@ -171,10 +173,12 @@ public class WvaApplication extends Application {
                 if (cfg == null || !cfg.isSubscribed()) {
                     return;
                 }
+				/**
                 else if (cfg.shouldBePushedToDeviceCloud()) {
                     Sample s = new Sample("wva", endpoint, String.valueOf(value));
                     mCloudConnectorManager.sendSample("upload.xml", s);
-                }
+                }**/
+
             } else if (event.getType() == EventFactory.Type.ALARM) {
                 Log.v("WVAApplication", "Alarm triggered by " + endpoint);
 
@@ -214,7 +218,10 @@ public class WvaApplication extends Application {
             Log.e(TAG, "Couldn't get app version: NameNotFoundException");
         }
 
-        appVersion = versionName;
+
+
+
+		appVersion = versionName;
 		
 		// Initialize global singleton objects.
 		createSingletons();
@@ -222,7 +229,7 @@ public class WvaApplication extends Application {
         // "Start" the VehicleInfoService
 		startService(VehicleInfoService.buildCreateIntent(this));
 		
-		mCloudConnectorManager = new CloudConnectorManager(this);
+		//mCloudConnectorManager = new CloudConnectorManager(this);
 	}
 	
 	void createSingletons() {

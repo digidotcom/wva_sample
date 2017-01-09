@@ -9,6 +9,7 @@ package com.digi.android.wva;
 
 import android.os.Bundle;
 import android.util.Log;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.digi.android.wva.fragments.ChartFragment;
@@ -25,6 +26,9 @@ public class ChartActivity extends SherlockFragmentActivity
 		setContentView(R.layout.chart_activity);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
 	}
 
     @Override

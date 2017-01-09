@@ -10,6 +10,7 @@ package com.digi.android.wva;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -17,6 +18,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.digi.android.wva.fragments.FaultCodeBrowsingFragment;
 import com.digi.android.wva.fragments.FaultCodeDetailsFragment;
 import com.digi.wva.async.FaultCodeCommon;
+import com.digi.wva.async.WvaCallback;
 
 /**
  * An activity for browsing fault codes.
@@ -48,6 +50,29 @@ public class FaultCodeActivity extends SherlockFragmentActivity implements Fault
             transaction.replace(R.id.faultCodeFragment, new FaultCodeBrowsingFragment(), BROWSE_FRAG_TAG);
             transaction.commit();
         }
+        // Check that we are talking to a WVA
+        final WvaApplication wvaapp = (WvaApplication) getApplication();
+
+        final TextView t;
+
+        t = (TextView) findViewById(R.id.connection_status_text);
+
+        wvaapp.getDevice().isWVA(new WvaCallback<Boolean>() {
+            @Override
+            public void onResponse(Throwable error, Boolean success) {
+                if (error != null) {
+                    error.printStackTrace();
+                }
+                else {
+                    if (success) {
+                        t.setText(R.string.wva_connect_ok);
+                    }
+                    else {
+                        t.setText(R.string.wva_connect_error);
+                    }
+                }
+            }
+        });
     }
 
     @Override

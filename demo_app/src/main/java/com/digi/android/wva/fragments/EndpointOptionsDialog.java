@@ -21,8 +21,17 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.digi.android.wva.R;
 import com.digi.android.wva.WvaApplication;
 import com.digi.android.wva.adapters.EndpointsAdapter;
@@ -93,7 +102,7 @@ public class EndpointOptionsDialog extends DialogFragment {
      * </p>
      */
     protected WvaCallback<Void> makeWsCallback(final Context context, final String succeedText,
-                                              final String failText) {
+                                               final String failText) {
         return new WvaCallback<Void>() {
             @Override
             public void onResponse(Throwable error, Void response) {
@@ -186,7 +195,7 @@ public class EndpointOptionsDialog extends DialogFragment {
 		final Spinner typeSpinner = (Spinner)v.findViewById(R.id.alarmTypeSpinner);
         final LinearLayout makeAlarmSection = (LinearLayout)v.findViewById(R.id.section_make_alarm);
         final LinearLayout showAlarmSection = (LinearLayout) v.findViewById(R.id.section_show_alarm);
-		final CheckBox dcSendCB = (CheckBox)v.findViewById(R.id.dcPushCheckbox);
+		//final CheckBox dcSendCB = (CheckBox)v.findViewById(R.id.dcPushCheckbox);
 
         String alarmInfo = "No alarm yet";
         boolean isSubscribed = false;
@@ -293,7 +302,7 @@ public class EndpointOptionsDialog extends DialogFragment {
             alarmCB.setText("Create alarm");
         }
 		
-		dcSendCB.setChecked(isSendingToDC);
+		//dcSendCB.setChecked(isSendingToDC);
 		
 		subInterval.setText(Integer.toString(sinterval));
 		
@@ -314,10 +323,12 @@ public class EndpointOptionsDialog extends DialogFragment {
             	EndpointConfiguration cfg = EndpointsAdapter.getInstance().findEndpointConfiguration(mConfig.getEndpoint());
             	
             	// Set whether this endpoint's data should be pushed to Device Cloud
+
                 if (cfg != null) {
-                    cfg.setPushToDeviceCloud(dcSendCB.isChecked());
+                    //cfg.setPushToDeviceCloud(dcSendCB.isChecked());
+                    cfg.setPushToDeviceCloud(false);
                 }
-            	
+
             	// Handle (un)subscribing
             	
                 if (isUnsubscribing(subscribedCB.isChecked())) {

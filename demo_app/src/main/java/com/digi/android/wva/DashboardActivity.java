@@ -13,11 +13,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.v4.app.*;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -34,27 +40,29 @@ import com.digi.android.wva.fragments.PreConnectionDialog.PreConnectionDialogLis
 import com.digi.android.wva.fragments.VariableListFragment;
 import com.digi.android.wva.util.MessageCourier;
 import com.digi.wva.async.WvaCallback;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+
 /**
  * Activity to be launched when the user selects a device to connect to.
- * 
+ *
  * <p>On tablets, the three content fragments
  * ({@link VariableListFragment}, {@link LogFragment}, {@link EndpointsFragment})
  * are displayed all at once (see layouts <b>res/layout-sw600dp/dashboard</b>
  * and <b>res/layout-sw600dp-port/dashboard</b>).</p>
- * 
+ *
  * <p>On phones (and mid-sized tablets?) the fragments will be displayed in a
  * {@link TabsAdapter} which allows the fragments to be paged through.</p>
- * 
+ *
  * @author mwadsten
  *
  */
 public class DashboardActivity extends SherlockFragmentActivity
 								implements ErrorDialogListener, PreConnectionDialogListener {
 	public static final String INTENT_IP = "ip_address";
-	
+
 	private static final String TAG = "DashboardActivity";
     private ViewPager mViewPager;
 
@@ -116,12 +124,12 @@ public class DashboardActivity extends SherlockFragmentActivity
 //		Log.i(TAG, "onPause");
 		super.onPause();
 	}
-	
+
 	@Override
 	protected void onResume() {
 //		Log.i(TAG, "onResume");
 		super.onResume();
-		
+
 		WvaApplication app = (WvaApplication)getApplication();
 		app.dismissAlarmNotification();
 
@@ -142,7 +150,7 @@ public class DashboardActivity extends SherlockFragmentActivity
 		((WvaApplication)getApplication()).dismissAlarmNotification();
 		super.finish();
 	}
-	
+
 	@SuppressLint("CommitTransaction")
 	protected void showErrorDialog(String error) {
 		ConnectionErrorDialog dialog =
@@ -153,7 +161,7 @@ public class DashboardActivity extends SherlockFragmentActivity
 
 		dialog.show(ft, "error_dialog");
 	}
-	
+
 	/**
 	 * Implementation of the ErrorDialogListener interface defined in
 	 * ConnectionErrorDialog class. When the user acknowledges the
@@ -180,7 +188,7 @@ public class DashboardActivity extends SherlockFragmentActivity
         startService(VehicleInfoService.buildConnectIntent(
         		getApplicationContext(), ipAddress, username, password, useHttps));
 	}
-    
+
     /**
      * Implementation of {@link PreConnectionDialogListener#onCancelConnection()}.
      * When the user presses the "Cancel" button in that dialog, the dialog will
@@ -199,7 +207,7 @@ public class DashboardActivity extends SherlockFragmentActivity
         setSupportProgressBarIndeterminateVisibility(is);
         showIndeterminateProgress = is;
     }
-	
+
 	protected String getConnectionIp() {
     	String ipAddr = getIntent().getStringExtra(INTENT_IP);
 
@@ -208,10 +216,10 @@ public class DashboardActivity extends SherlockFragmentActivity
     		ipAddr = PreferenceManager.getDefaultSharedPreferences(this)
     				.getString("pref_device_manual_ip", getString(R.string.default_ip));
     	}
-    	
+
     	return ipAddr;
 	}
-	
+
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
 //		Log.i(TAG, "onCreate");
@@ -222,7 +230,7 @@ public class DashboardActivity extends SherlockFragmentActivity
         setContentView(R.layout.dashboard);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
         // We want to wipe out variable and log data if this is a
         // fresh launch into this activity.
         if (savedInstanceState == null) {
@@ -230,10 +238,10 @@ public class DashboardActivity extends SherlockFragmentActivity
         	clearData();
 
             mActionBarTitle = getString(R.string.pre_connected_dashboard_title);
-            
+
             // Send connect command to service...
         	String ipAddr = getConnectionIp();
-        	
+
         	FragmentManager fm = getSupportFragmentManager();
         	FragmentTransaction ft = fm.beginTransaction();
         	PreConnectionDialog dlg = PreConnectionDialog.newInstance(ipAddr);
@@ -257,7 +265,7 @@ public class DashboardActivity extends SherlockFragmentActivity
         if (mViewPager != null) { // Running on a phone.
             TabsAdapter mTabsAdapter = new TabsAdapter(getSupportFragmentManager());
         	mViewPager.setAdapter(mTabsAdapter);
-        	
+
         	if (savedInstanceState != null)
         		mViewPager.setCurrentItem(savedInstanceState.getInt("page", 2));
         	else
@@ -265,8 +273,9 @@ public class DashboardActivity extends SherlockFragmentActivity
         }
 
         setIsConnecting(showIndeterminateProgress);
+
     }
-    
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 //    	Log.i(TAG, "onSaveInstanceState");
@@ -291,7 +300,7 @@ public class DashboardActivity extends SherlockFragmentActivity
     	EndpointsAdapter.getInstance().clear();
         MessageCourier.clear();
     }
-	
+
 	/**
 	 * Title and subtitle are stored in instance variables so that
 	 * screen rotation, etc. can end with their contents restored.
@@ -300,17 +309,17 @@ public class DashboardActivity extends SherlockFragmentActivity
 		getSupportActionBar().setTitle(mActionBarTitle);
 		getSupportActionBar().setSubtitle(mActionBarSubtitle);
 	}
-	
+
 	/**
 	 * Uses NavUtils task stack builder to help make it so that we can leave
 	 * the dashboard activity and go back to the device list.
 	 */
 	protected void navigateBackToDevices() {
 //		Log.d(TAG, "navigateBackToDevices");
-		
+
 		Log.d(TAG, "Exiting dashboard, returning to device discovery.");
 		((WvaApplication)getApplication()).clearDevice();
-		
+
 		// developer.android.com/training/implementing-navigation/ancestral.html
 		Intent upIntent = new Intent(this, DeviceListActivity.class);
 		if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
@@ -429,6 +438,6 @@ public class DashboardActivity extends SherlockFragmentActivity
 		public int getCount() {
 			return 3;
 		}
-		
+
 	}
 }

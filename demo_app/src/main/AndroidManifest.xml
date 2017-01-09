@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.digi.android.wva"
-    android:versionCode="3"
-    android:versionName="1.2.0.0" >
+    android:versionCode="5"
+    android:versionName="1.2.3.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="17" />
+        android:minSdkVersion="18"
+        android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -17,9 +17,10 @@
         android:allowBackup="true"
         android:name="com.digi.android.wva.WvaApplication"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/app_name_sample_app"
         android:theme="@style/AppTheme" >
-        
+
+
         <activity
             android:name=".DeviceListActivity"
             android:label="@string/app_name"

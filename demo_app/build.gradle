@@ -3,46 +3,58 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
-
-version "1.2"
+version "1.2.3.0"
 
 dependencies {
     // Dependencies available on Maven
     compile 'com.digi.addp:addplib:1.0+'
-    compile 'com.digi.wva:wvalib:2.0+'
+    // If using a local build of wvalib then place // infront of the following line to comment
+    // it out.
+    //compile 'com.digi.wva:wvalib:2.+'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile 'com.android.support:support-v4:18.0.+'
+    // NOTE: v4:23 and above seem to break ActionBarSherlock (No instance field mFragments ...)
+    compile 'com.android.support:support-v4:22.2.0'
+    // Note: ActionBarSherlock will be removed in a furture release and replaces with Googles
+    // ActionBar which will allow v7:25 to be used.
+    //compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'joda-time:joda-time:2.2'
-
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
+    compile 'com.google.dexmaker:dexmaker:1.2'
     // Dependencies pulled in as JARs
     compile files('libs/achartengine-1.0.0.jar')
-    compile files('libs/cloud_connector_android.jar')
-
+    // Used for local build of the wvalib.  If wvalib is built on a local machine drop it into the
+    // libs folder and uncomment the following line.
+    compile files('libs/wvalib-2.2.0-rc1-SNAPSHOT.jar')
     // Testing dependencies
     androidTestCompile files('libs/android-junit-report-1.5.8.jar')
-    androidTestCompile files('libs/dexmaker-1.0.jar')
-    androidTestCompile files('libs/dexmaker-mockito-1.0.jar')
-    androidTestCompile files('libs/mockito-all-1.9.5.jar')
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
+    androidTestCompile 'org.mockito:mockito-all:1.9.5'
+
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "20"
-
+    compileSdkVersion 23
+    buildToolsVersion "25.0.0"
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 17
+        minSdkVersion 18
+        targetSdkVersion 23
 
+        // Enabling multidex support.
+        multiDexEnabled true
         applicationId "com.digi.android.wva"
         testApplicationId "com.digi.android.wva.test"
         testInstrumentationRunner "com.digi.android.wva.test.WVATestRunner"
         testHandleProfiling true
         testFunctionalTest true
 
-        versionName "${version}.0.0"
-        versionCode 3
-    }
+        versionName "${version}"
+        versionCode 4
 
+    }
+    lintOptions {
+        abortOnError false
+    }
     signingConfigs {
         releaseSigning {
             storeFile file((releaseKeystore.size() > 0) ? releaseKeystore : 'NO_KEYSTORE')
@@ -51,7 +63,6 @@ android {
             keyPassword releaseKeyPassword
         }
     }
-
     buildTypes {
         debug {
             versionNameSuffix " (${new Date().format('yyyy-MM-dd HH:mm:ss')})"
@@ -63,5 +74,16 @@ android {
                 signingConfig signingConfigs.releaseSigning
             }
         }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
+    productFlavors {
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
 }

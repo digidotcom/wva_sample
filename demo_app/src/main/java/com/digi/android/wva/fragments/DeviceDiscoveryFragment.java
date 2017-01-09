@@ -228,7 +228,6 @@ public class DeviceDiscoveryFragment extends SherlockListFragment {
             } else {
                 devices = new Hashtable<String, AddpDevice>();
             }
-
             Log.d(TAG, "Discovered " + devices.size() + " devices.");
             return devices;
         }

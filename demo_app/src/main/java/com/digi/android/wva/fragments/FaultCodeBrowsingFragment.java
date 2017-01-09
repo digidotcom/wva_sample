@@ -17,6 +17,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.digi.android.wva.BuildConfig;
 import com.digi.android.wva.R;
 import com.digi.android.wva.WvaApplication;
 import com.digi.android.wva.adapters.FaultCodesAdapter;
@@ -36,7 +37,7 @@ public class FaultCodeBrowsingFragment extends SherlockFragment implements Fault
 
     private WVA device;
 
-    private static final String TAG = "FaultCodeBrowsingFragment";
+    private static final String TAG = "WVA Demo FCBFragment";
 
     public static interface FaultCodeEcuSelectedListener {
         public void onSelect(FaultCodeCommon.Bus bus, String ecu);
@@ -83,7 +84,10 @@ public class FaultCodeBrowsingFragment extends SherlockFragment implements Fault
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
-                assert getActivity() instanceof FaultCodeEcuSelectedListener;
+                if (BuildConfig.DEBUG) {
+                    if (!(getActivity() instanceof FaultCodeEcuSelectedListener))
+                        throw new AssertionError("FaultCodeBrowsingFragment - activity doesn't implement FaultCodeEcuSelectedListener");
+                }
 
                 ((FaultCodeEcuSelectedListener)getActivity()).onSelect(adapter.getBusFromGroupPosition(groupPosition), (String)view.getTag());
 
@@ -147,7 +151,7 @@ public class FaultCodeBrowsingFragment extends SherlockFragment implements Fault
                     Collections.sort(nameList);
                     adapter.putGroup(busName, nameList);
 
-                    Log.i("FaultCodeBrowsingFragment", String.format("Found %d ECUs on %s", names.size(), busName));
+                    Log.i(TAG, String.format("Found %d ECUs on %s", names.size(), busName));
                 }
 
                 adapter.setRefreshState(headerView, false);
