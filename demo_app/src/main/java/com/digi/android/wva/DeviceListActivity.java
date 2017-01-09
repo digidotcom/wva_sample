@@ -12,12 +12,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.digi.connector.android.library.core.CloudConnectorManager;
+//import com.digi.connector.android.library.core.CloudConnectorManager;
 
 /**
  * The starting activity for the demo application. Its main task is to
@@ -65,8 +64,8 @@ public class DeviceListActivity extends SherlockFragmentActivity {
 		// Check if the Cloud Connector is installed.
 		// Do this in onResume so that the warning message can be cleared if the user
 		// leaves, installs the Cloud Connector, and comes back.
-        CloudConnectorManager mCloudConnectorManager = ((WvaApplication)getApplication()).getCloudConnector();
-		
+        //CloudConnectorManager mCloudConnectorManager = ((WvaApplication)getApplication()).getCloudConnector();
+		/*
 		if (!mCloudConnectorManager.isCloudConnectorInstalled()) {
 			TextView ccInstall = (TextView)findViewById(R.id.cloud_connector_install_warning);
 			if (ccInstall != null) {
@@ -76,6 +75,7 @@ public class DeviceListActivity extends SherlockFragmentActivity {
 				ccInstall.setOnClickListener(ccInstallListener);
 			}
 		}
+		*/
 	}
 
 	@Override

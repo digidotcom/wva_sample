@@ -22,10 +22,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.digi.android.wva.WvaApplication;
 import com.digi.android.wva.model.VehicleData;
 import com.digi.android.wva.util.MessageCourier;
 import com.digi.wva.async.WvaCallback;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.LineChart;
@@ -173,8 +175,10 @@ public class ChartFragment extends Fragment {
 		if (container == null) {
 			container = new LinearLayout(getActivity());
 		}
-		container.addView(ChartFactory.getCombinedXYChartView(getActivity(), mDataset, mRenderer, new String[] { LineChart.TYPE, LineChart.TYPE}));
-		return container;
+		container.addView(ChartFactory.getCombinedXYChartView(getActivity(), mDataset, mRenderer, new String[] {LineChart.TYPE, LineChart.TYPE}));
+
+       //container.addView(ChartFactory.getCombinedXYChartView(getActivity(), mDataset, mRenderer, new String[] {new CombinedXYChart.XYCombinedChartDef(LineChart.TYPE, 0), new CombinedXYChart.XYCombinedChartDef(LineChart.TYPE, 1
+        return container;
 	}
 
     /**
